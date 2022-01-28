@@ -13,15 +13,14 @@ var addTask = function () {
     var date = new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"});
 
 
-    var todo = document.createElement('tr');
+    var todo = document.createElement('div');
+    todo.className += 'note';
     todo.innerHTML = `
-        <div class="note">
-            <h2>${item}</h2>
-            <p>${description}</p>
-            <p>${date}</p>
-            <p>Complete</p>
-            <p><span id="deleteTaskSpan" onclick="deleteTodo()">Delete task</span></p>
-        </div>
+        <h2>${item}</h2>
+        <p>${description}</p>
+        <p>${date}</p>
+        <p>Complete</p>
+        <p><span id="deleteTaskSpan" onclick="deleteTodo()">Delete task</span></p>
     `;
     noteContainer.appendChild(todo);
     
