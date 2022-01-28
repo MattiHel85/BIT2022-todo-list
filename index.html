@@ -12,38 +12,40 @@
     <script src="./js/script.js"></script>
 </head>
 <body>
-    <section class="m-5">
-        <h1>To Do List</h1>
-        <!-- | item | description | date added | completed -->
-        <div class="d-inline-block mb-3 p-2 w-25">
-            <!-- Input form goes here -->
-            <div class="bg-light">
+    <div class="container m-5">
+        <div class="row">
+            <h1 class="text-center mb-3">Taskmaster 2.0</h1> <!-- stupid name, I know. Just a placeholder-->
+            <!-- | item | description | date added | completed -->
+            <div class="shadow-sm col-4 p-5" style="height: 450px" id="leftPanel">
                 <h3 class="mb-3">Add a task to get started</h3>
                 <div class="mb-3">
-                    <label for="item" class="form-label">Item:</label>
+                    <label for="item" class="form-label">Title:</label>
                     <input type="text" class="form-control" id="item">
                 </div>
                 <div class="mb-3">
                     <label for="description" class="form-label">Description</label>
                     <textarea class="form-control" id="description" rows="3"></textarea>
                 </div>
-                <div class="mb-3">              
+                <div class="mb-3">   
+                    <!-- button to submit task            -->
                     <input onclick="addTask()" type="button" value="Submit" class="btn btn-primary mb-3">
+                    <!-- button to clear table  -->
+                    <input type="button" value="Clear tasks" class="btn btn-danger mb-3">
                 </div>
             </div>
+            <div class="col-8 p-5 text-center">
+                <h3 class="mb-1">
+                    Tasks
+                </h3>
+                <!-- Notes go here  -->
+                <section id="notes">           
+                </section>
+            </div>
         </div>
-        <div class="d-inline-block mb-3">
-            <!-- Notes go here  -->
-            <section id="notes">
-            
-            </section>
-        </div>
-        <!-- button to clear table  -->
-        <button type="button">Clear tasks</button>
 
         <!-- Message to user congratulating them on finishing everything -->
 
-    </section>
+    </div>
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

@@ -16,7 +16,7 @@ var addTask = function () {
         <p>${description}</p>
         <p>${date}</p>
         <p>Complete</p>
-        <p class="testOne" id="deleteTaskSpan" onclick="deleteTodo()">Delete task</p>
+        <p class="testOne" id="deleteTaskCursor" onclick="deleteTodo()">Delete task</p>
     `;
     noteContainer.appendChild(todo);
 
