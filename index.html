@@ -16,22 +16,29 @@
     <section>            
 
         <!-- | item | description | date added | completed -->
-        <h3>Add a task to get started</h3>
-        <!-- Input form goes here -->
-        <form action="#">
-            <label for="item">Item:</label><br>
-            <input type="text" id="item" name="item"><br>
-            <label for="description">Description:</label><br>
-            <textarea type="text" id="description" name="description" rows="4" cols="30" wrap="hard"></textarea><br><br>
-            <input onclick="addTask()" type="button" value="Submit">
-        </form>
-
-        <!-- Notes go here  -->
-        <section id="notes">
-          
-        </section>
-        <br>
-        <br>
+        <div class="d-flex flex-sm-column mb-3">
+            <!-- Input form goes here -->
+            <div class="w-25">
+                <h3 class="mb-3">Add a task to get started</h3>
+                <div class="mb-3">
+                    <label for="item" class="form-label">Item:</label>
+                    <input type="text" class="form-control" id="item">
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" id="description" rows="3"></textarea>
+                </div>
+                <div class="mb-3">              
+                    <input onclick="addTask()" type="button" value="Submit" class="btn btn-primary mb-3">
+                </div>
+            </div>
+        </div>
+        <div class="d-flex flex-sm-column mb-3 align-items-end">
+            <!-- Notes go here  -->
+            <section id="notes">
+            
+            </section>
+        </div>
         <!-- button to clear table  -->
         <button type="button">Clear tasks</button>
 

@@ -10,6 +10,7 @@ var addTask = function () {
 
     var todo = document.createElement('div');
     todo.className += 'note';
+
     todo.innerHTML = `
         <h2>${item}</h2>
         <p>${description}</p>
