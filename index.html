@@ -17,14 +17,14 @@
         <!-- Input form goes here -->
         <form action="#">
             <label for="item">Item:</label><br>
-            <input type="text" id="item" name="item" value="Item"><br>
+            <input type="text" id="item" name="item"><br>
             <label for="description">Description:</label><br>
-            <textarea type="text" id="description" name="description" value="Descrition" rows="4" cols="30" wrap="hard"></textarea><br><br>
-            <input type="submit" value="Submit">
+            <textarea type="text" id="description" name="description" rows="4" cols="30" wrap="hard"></textarea><br><br>
+            <input onclick="addTask()" type="button" value="Submit">
           </form> 
 
         <!-- Display table goes here  -->
-        <table>
+        <table id="table">
             <tr>
               <th>Item</th>
               <th>Description</th>
@@ -32,14 +32,6 @@
               <th>Complete</th>
               <th>Delete</th>
             </tr>
-            <tr>
-              <td>Test data</td>
-              <td>Test data</td>
-              <td>Test data</td>
-              <td>Test data</td>
-              <td>X</td>
-            </tr>
-            <tr>
           </table>
 
         <!-- button to clear table  -->
