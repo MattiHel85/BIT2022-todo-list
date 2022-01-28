@@ -22,7 +22,9 @@ var addTask = function () {
         <td><span id="deleteTaskSpan" onclick="deleteTodo()">X</span></td>
     `;
     table.appendChild(todo);
-
+    
+    // The code below this line should empty the input fields, but it does not
+    
     item.value = " ";
     description.value = " ";
 }
