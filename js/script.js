@@ -1,6 +1,40 @@
 console.log("connected");
 
+const noteList = 'noteList' 
+
+Storage.prototype.setObj = function(key, obj) {
+    return this.setItem(key, JSON.stringify(obj))
+}
+Storage.prototype.getObj = function(key) {
+    return JSON.parse(this.getItem(key))
+}
+
+class Note{
+    constructor(title,description,date,color){
+    this.title = title;
+    this.description = description;
+    this.date = date;
+    this.color = color;
+    }
+    
+    }
+
 // item | description | date added | completed | delete
+
+var showNote = function(title,description,date,color){
+    var noteContainer = document.getElementById("notes");
+    var todo = document.createElement('div');
+    todo.className += 'note';
+    todo.innerHTML = `
+        <h2>${title}</h2>
+        <p>${description}</p>
+        <p>${date}}</p>
+        <p>${color}}</p>
+        <p>Complete</p>
+        <p class="testOne" id="deleteTaskCursor" onclick="deleteTodo()">Delete task</p>
+    `;
+    noteContainer.appendChild(todo);
+}
 
 var addTask = function () {
     var noteContainer = document.getElementById("notes");
@@ -8,27 +42,32 @@ var addTask = function () {
     var description = document.getElementById("description").value;
     var date = new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"});
     
-    localStorage.setItem('item', `${item}`);
-    localStorage.setItem('description', `${description}`);
-    localStorage.setItem('date', `${date}`);
+    //LOAD LIST OF NOTES FROM THE LOCAL SOTRAGE
+    var oldListLocalStorage = localStorage.getObj(noteList)
+    //CREATE NEW NOTE
+    var newNote = new Note(item,description,date,"Red") //TODO ADD DROPDOWNMENU COLOR PICKER OPTION
+    //IF ARRAY OF NOTES FROM LOCAL STORAGE IS NULL CREATE NEW ARRAY
+    //SAVE IT IN THE LOCAL STORAGE
+    //AND LOAD NOTE
+    if(oldListLocalStorage == null) {
+        var newArray = [newNote]
+        localStorage.setObj(noteList,newArray)
+    }
+    //OTHERWISE ADD NEW NOTE TO OLD ARRAY 
+    //SAVE NEW ARRAY IN LOCAL STORAGE
+    //AND LOAD NOTES FROM THE ARRAY
+    else{
+        oldListLocalStorage.push(newNote)
+        localStorage.setObj(noteList,oldListLocalStorage)
+    }
+    // ADD NEW NOTE TO LIST DOWNLOADED FROM LOCAL STORAGE
+    console.log(oldListLocalStorage)
+    //REPLACE OLD LIST WITH NEW LIST IN LOCAL STORAGE
 
-    // <h2>${item}</h2>
-    //     <p>${description}</p>
-    //     <p>${date}</p>
-
-
-    var todo = document.createElement('div');
-    todo.className += 'note';
-
-    todo.innerHTML = `
-        <h2>${localStorage.getItem("item")}</h2>
-        <p>${localStorage.getItem("description")}</p>
-        <p>${localStorage.getItem("date")}</p>
-        <p>Complete</p>
-        <p class="testOne" id="deleteTaskCursor" onclick="deleteTodo()">Delete task</p>
-    `;
-    noteContainer.appendChild(todo);
-
+    //FOR EACH OBJECT FROM THE LIST ADD NEW NOTE
+    for (eachNote in oldListLocalStorage){
+        showNote(eachNote);
+    }
     document.getElementById("item").value = '';
     document.getElementById("description").value = '';    
 }
