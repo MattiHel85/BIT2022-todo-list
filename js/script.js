@@ -9,16 +9,6 @@ Storage.prototype.getObj = function(key) {
     return JSON.parse(this.getItem(key))
 }
 
-class Note{
-    constructor(title,description,date,color){
-    this.title = title;
-    this.description = description;
-    this.date = date;
-    this.color = color;
-    }
-    
-    }
-
 // item | description | date added | completed | delete
 
 var showNote = function(title,description,date,color){
@@ -75,4 +65,9 @@ var addTask = function () {
 var deleteTodo = function () {
     var x = document.getSelection().anchorNode.parentNode.parentNode;
     x.parentNode.removeChild(x);
+}
+
+
+var clearTasks = function(){
+    localStorage.clear()
 }
