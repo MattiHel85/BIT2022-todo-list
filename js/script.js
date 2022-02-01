@@ -11,16 +11,18 @@ Storage.prototype.getObj = function(key) {
 
 // item | description | date added | completed | delete
 
-var addNoteCard = function(title,description,date,color){
+var addNoteCard = function(title,description,date,color,noteId){
     var noteContainer = document.getElementById("notes");
     var singleNote = document.createElement('div');
+    singleNote.id = noteId
+    console.log(singleNote.id)
     singleNote.className += 'note';
     singleNote.innerHTML = `
         <h2>${title}</h2>
         <p>${description}</p>
         <p>${date}</p>
         <p>Complete</p>
-        <p class="testOne" id="deleteTaskCursor" onclick="deleteTodo()">Delete task</p>
+        <p class="testOne" id="deleteTaskCursor" onclick="deleteTodo(${noteId})">Delete task</p>
     `;
     noteContainer.appendChild(singleNote);
 }
@@ -31,8 +33,8 @@ var refreshNotesCards = function () {
     noteContainer.innerHTML = "";
     var listLocalStorage = localStorage.getObj(noteList)
     for (eachNote in listLocalStorage){
-        var noteObject = listLocalStorage[eachNote]
-        addNoteCard(noteObject.title,noteObject.description,noteObject.date);
+        var noteObject = listLocalStorage[eachNote];
+        addNoteCard(noteObject.title,noteObject.description,noteObject.date,noteObject.color,eachNote);
     }
 }
 
@@ -59,14 +61,19 @@ var addNewNote = function () {
     }
     //REFRESH NEW NOTES BECAUSE THE LOCALSTORAGE GOT UPDATED
     refreshNotesCards()
+    clearInputFields()
+}
 
+var clearInputFields = function(){
     document.getElementById("item").value = '';
     document.getElementById("description").value = '';    
 }
 
-var deleteTodo = function () {
-    var x = document.getSelection().anchorNode.parentNode.parentNode;
-    x.parentNode.removeChild(x);
+var deleteTodo = function (id) {
+    var listLocalStorage = localStorage.getObj(noteList)
+    listLocalStorage.splice(id,1)
+    localStorage.setObj(noteList,listLocalStorage)
+    refreshNotesCards()
 }
 
 
