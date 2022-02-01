@@ -64,7 +64,7 @@ var addNewNote = function () {
     //LOAD LIST OF NOTES FROM THE LOCAL SOTRAGE
     var oldListLocalStorage = localStorage.getObj(noteList)
     //CREATE NEW NOTE
-    var newNote = new Note(item,description,date,"Red") //TODO ADD DROPDOWNMENU COLOR PICKER OPTION
+    var newNote = new Note(item,description,date,"Red","active") //TODO ADD DROPDOWNMENU COLOR PICKER OPTION
     //IF ARRAY OF NOTES FROM LOCAL STORAGE IS NULL CREATE NEW ARRAY
     //SAVE IT IN THE LOCAL STORAGE
     if(oldListLocalStorage == null) {
