@@ -14,7 +14,7 @@
     <script src="./js/script.js"></script>
 
 </head>
-<body>
+<body onLoad="refreshNotesCards()">
     <div class="container">
         <div class="row">
             <h1 class="text-center mb-3">Taskmaster 2.0</h1> <!-- stupid name, I know. Just a placeholder-->
@@ -31,7 +31,7 @@
                 </div>
                 <div class="mb-3">   
                     <!-- button to submit task            -->
-                    <input onclick="addTask()" type="button" value="Submit" class="btn btn-primary mb-3">
+                    <input onclick="addNewNote()" type="button" value="Submit" class="btn btn-primary mb-3">
                     <!-- button to clear table  -->
                     <input onClick="clearTasks()" type="button" value="Clear tasks" class="btn btn-danger mb-3">
                 </div>
