@@ -14,13 +14,13 @@
     <script src="./js/script.js"></script>
 
 </head>
-<body onLoad="refreshNotesCards()">
+<body onLoad="onLoad()">
     <div class="container">
         <div class="row">
             <h1 class="text-center mb-3">Taskmaster 2.0</h1> <!-- stupid name, I know. Just a placeholder-->
             <!-- | item | description | date added | completed -->
             <div class="shadow-sm col-sm-12 col-md-5 p-5 rounded" style="height: 450px" id="leftPanel">
-                <h3 class="mb-3">Add a task to get started</h3>
+                <div class="mb-3" id="task-priority"></div>
                 <div class="mb-3">
                     <label for="item" class="form-label">Title:</label>
                     <input type="text" class="form-control box" id="item">
@@ -28,6 +28,16 @@
                 <div class="mb-3">
                     <label for="description" class="form-label">Description</label>
                     <textarea class="form-control box" id="description" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                    <div class="dropdown">
+                        <button onclick="openDropdown()" class="dropbtn">Priority</button>
+                        <div id="myDropdown" class="dropdown-content">
+                        <a href="#low" onClick="prioritySelected('low')">Low priority</a>
+                        <a href="#medium" onClick="prioritySelected('medium')" >Medium priority</a>
+                        <a href="#high" onClick="prioritySelected('high')" >High priority</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="mb-3">   
                     <!-- button to submit task            -->

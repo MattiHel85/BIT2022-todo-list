@@ -9,9 +9,12 @@ Storage.prototype.getObj = function(key) {
     return JSON.parse(this.getItem(key))
 }
 
+/**THIS IS HOLDER OF PRIORITY SELECTION INITIALLY LOW*/ 
+var selectedPriority = "low"
+
 // item | description | date added | completed | delete
 
-var addNoteCard = function(title,description,date,color,noteId){
+var addNoteCard = function(title,description,date,status,priority,color,noteId){
     var noteContainer = document.getElementById("notes");
     var singleNote = document.createElement('div');
     singleNote.id = noteId
@@ -19,6 +22,7 @@ var addNoteCard = function(title,description,date,color,noteId){
     singleNote.className += 'note';
     singleNote.innerHTML = `
         <h2>${title}</h2>
+        <h3>${priority} priority task</h3>
         <p>${description}</p>
         <p>${date}</p>
         <p>Complete</p>
@@ -34,7 +38,7 @@ var refreshNotesCards = function () {
     var listLocalStorage = localStorage.getObj(noteList)
     for (eachNote in listLocalStorage){
         var noteObject = listLocalStorage[eachNote];
-        addNoteCard(noteObject.title,noteObject.description,noteObject.date,noteObject.color,eachNote);
+        addNoteCard(noteObject.title,noteObject.description,noteObject.date,noteObject.status,noteObject.priority,noteObject.color,eachNote);
     }
 }
 
@@ -64,7 +68,7 @@ var addNewNote = function () {
     //LOAD LIST OF NOTES FROM THE LOCAL SOTRAGE
     var oldListLocalStorage = localStorage.getObj(noteList)
     //CREATE NEW NOTE
-    var newNote = new Note(item,description,date,"Red","active") //TODO ADD DROPDOWNMENU COLOR PICKER OPTION
+    var newNote = new Note(item,description,date,"Red",selectedPriority,"active") //TODO ADD DROPDOWNMENU COLOR PICKER OPTION
     //IF ARRAY OF NOTES FROM LOCAL STORAGE IS NULL CREATE NEW ARRAY
     //SAVE IT IN THE LOCAL STORAGE
     if(oldListLocalStorage == null) {
@@ -109,3 +113,41 @@ var errorAnimation = function(elementId){
     }, 1000);   
 
 }
+
+
+
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+var openDropdown = function() {
+    document.getElementById("myDropdown").classList.toggle("show");
+  }
+
+
+  // Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+    if (!event.target.matches('.dropbtn')) {
+      var dropdowns = document.getElementsByClassName("dropdown-content");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+          openDropdown.classList.remove('show');
+        }
+      }
+    }
+  }
+
+
+  var prioritySelected = function(priority){
+      selectedPriority = priority
+      setTaskTitle()
+  }
+
+  var setTaskTitle = function(){
+      document.getElementById("task-priority").innerHTML = `<h2>Add ${selectedPriority} priority task.</h2>`
+  }
+
+  var onLoad = function(){
+      refreshNotesCards()
+      setTaskTitle()
+  }
