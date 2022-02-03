@@ -38,6 +38,7 @@ var addNoteCard = function(title,description,date,status,priority,color,noteId){
 }
 
 //  FIRSTLY DELETE ALL NOTES THEN ADD ALL NOTES FROM LOCALSTORAGE
+// IN THIS FUNCTION WE ALSO FILTER THE RESULT ACCORDING TO USER CHOICE.
 var refreshNotesCards = function () {
     var noteContainer = document.getElementById("notes");
     noteContainer.innerHTML = "";
