@@ -16,6 +16,10 @@ h1 {
     cursor: pointer;
 }
 
+#completeTaskCursor:hover {
+  cursor : pointer;
+}
+
 #leftPanel {
     background-color: aquamarine; /* just a test colour */
 }

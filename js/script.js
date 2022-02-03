@@ -1,6 +1,8 @@
 console.log("connected");
 
-const noteList = 'noteList' 
+const noteList = 'noteList'; 
+const active = 'Active';
+const completed = 'Completed';
 
 Storage.prototype.setObj = function(key, obj) {
     return this.setItem(key, JSON.stringify(obj))
@@ -23,10 +25,11 @@ var addNoteCard = function(title,description,date,status,priority,color,noteId){
     singleNote.innerHTML = `
         <h2>${title}</h2>
         <h3>${priority} priority task</h3>
+        <h3>${status} task</h3>
         <p>${description}</p>
         <p>${date}</p>
-        <p>Complete</p>
-        <p class="testOne" id="deleteTaskCursor" onclick="deleteTodo(${noteId})">Delete task</p>
+        <p  id="completeTaskCursor" onclick="switchTodoStatus(${noteId})">Complete</p>
+        <p  id="deleteTaskCursor" onclick="deleteTodo(${noteId})">Delete task</p>
     `;
     noteContainer.appendChild(singleNote);
 }
@@ -68,7 +71,7 @@ var addNewNote = function () {
     //LOAD LIST OF NOTES FROM THE LOCAL SOTRAGE
     var oldListLocalStorage = localStorage.getObj(noteList)
     //CREATE NEW NOTE
-    var newNote = new Note(item,description,date,"Red",selectedPriority,"active") //TODO ADD DROPDOWNMENU COLOR PICKER OPTION
+    var newNote = new Note(item,description,date,"Red",selectedPriority,active) //TODO ADD DROPDOWNMENU COLOR PICKER OPTION
     //IF ARRAY OF NOTES FROM LOCAL STORAGE IS NULL CREATE NEW ARRAY
     //SAVE IT IN THE LOCAL STORAGE
     if(oldListLocalStorage == null) {
@@ -98,6 +101,22 @@ var deleteTodo = function (id) {
     refreshNotesCards()
 }
 
+
+var switchTodoStatus = function(id){
+    var listLocalStorage = localStorage.getObj(noteList)
+    var oldNoteStatus = listLocalStorage[id].status
+    console.log(oldNoteStatus)
+    if(oldNoteStatus === active){
+        console.log(listLocalStorage[id].status)
+        listLocalStorage[id].status = completed
+        console.log("This should be changed now = " + listLocalStorage[id].status)
+    }
+    else{
+        listLocalStorage[id].status = active 
+    }
+    localStorage.setObj(noteList,listLocalStorage)
+    refreshNotesCards()
+}
 
 var clearTasks = function(){
     localStorage.clear()
