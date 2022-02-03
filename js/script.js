@@ -12,7 +12,10 @@ Storage.prototype.getObj = function(key) {
 }
 
 /**THIS IS HOLDER OF PRIORITY SELECTION INITIALLY LOW*/ 
-var selectedPriority = "low"
+var selectedPriority = "low";
+/**THIS ARE TWO HOLDERS RESPONSIBLE FOR KEEPING TRACK HOW TO FILTER NOTES*/
+var isActiveTasksChecked = true; // BECAUSE INITIALLY THIS IS CHECKED
+var isCompleteTasksChecked = false;
 
 // item | description | date added | completed | delete
 
@@ -39,11 +42,28 @@ var refreshNotesCards = function () {
     var noteContainer = document.getElementById("notes");
     noteContainer.innerHTML = "";
     var listLocalStorage = localStorage.getObj(noteList)
+    if(!isActiveTasksChecked){
+        listLocalStorage = listLocalStorage.filter(checkIfActive)
+    }
+    if(!isCompleteTasksChecked){
+        listLocalStorage = listLocalStorage.filter(checkIfCompleted)
+    }
     for (eachNote in listLocalStorage){
         var noteObject = listLocalStorage[eachNote];
         addNoteCard(noteObject.title,noteObject.description,noteObject.date,noteObject.status,noteObject.priority,noteObject.color,eachNote);
     }
 }
+
+var checkIfActive = function(note){
+    if(note.status == active) return false
+    else return true
+}
+
+var checkIfCompleted = function(note){
+    if(note.status == completed) return false
+    else return true
+}
+
 
 var addNewNote = function () {
     var item = document.getElementById("item").value;
@@ -170,3 +190,16 @@ window.onclick = function(event) {
       refreshNotesCards()
       setTaskTitle()
   }
+
+  var activeTasksToggle = function(boolean){
+    console.log(`Active task toggled! ${boolean} `)
+    isActiveTasksChecked = boolean;
+    refreshNotesCards();
+  }
+
+  var completedTasksToggle = function(boolean){
+    console.log(`Active task toggled! ${boolean} `)
+    isCompleteTasksChecked = boolean;
+    refreshNotesCards();
+  }
+

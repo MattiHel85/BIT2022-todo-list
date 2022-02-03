@@ -20,11 +20,11 @@
     </div>
     <div class="container-fluid custom-nav-bar d-flex p-2 justify-content-center">
         <div>
-        <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
+        <input type="checkbox" onchange="activeTasksToggle(this.checked)" class="btn-check" id="btn-check-outlined" autocomplete="off" checked>
         <label class="btn btn-outline-primary menu-button" for="btn-check-outlined">Show active tasks</label>
         </div>
         <div>
-        <input type="checkbox" class="btn-check" id="btn-check-2-outlined" autocomplete="off">
+        <input type="checkbox" onChange="completedTasksToggle(this.checked)" class="btn-check" id="btn-check-2-outlined" autocomplete="off">
         <label class="btn btn-outline-primary menu-button" for="btn-check-2-outlined">Show completed tasks</label>
         </div> 
         <button class="btn btn-primary menu-button" type="button">Add new task</button>
