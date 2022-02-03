@@ -15,9 +15,24 @@
 
 </head>
 <body onLoad="onLoad()">
+    <div class="p-5 bg-primary text-white">
+        <h1>Taskmaster 2.0</h1>
+    </div>
+    <div class="container-fluid custom-nav-bar d-flex p-2 justify-content-center">
+        <div>
+        <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
+        <label class="btn btn-outline-primary menu-button" for="btn-check-outlined">Show active tasks</label>
+        </div>
+        <div>
+        <input type="checkbox" class="btn-check" id="btn-check-2-outlined" autocomplete="off">
+        <label class="btn btn-outline-primary menu-button" for="btn-check-2-outlined">Show completed tasks</label>
+        </div> 
+        <button class="btn btn-primary menu-button" type="button">Add new task</button>
+
+    </div>
+
     <div class="container">
         <div class="row">
-            <h1 class="text-center mb-3">Taskmaster 2.0</h1> <!-- stupid name, I know. Just a placeholder-->
             <!-- | item | description | date added | completed -->
             <div class="shadow-sm col-sm-12 col-md-5 p-5 rounded" style="height: 450px" id="leftPanel">
                 <div class="mb-3" id="task-priority"></div>
