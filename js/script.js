@@ -12,7 +12,7 @@ Storage.prototype.getObj = function(key) {
 }
 
 /**THIS IS HOLDER OF PRIORITY SELECTION INITIALLY LOW*/ 
-var selectedPriority = "low";
+var selectedPriority = "Low";
 /**THIS ARE TWO HOLDERS RESPONSIBLE FOR KEEPING TRACK HOW TO FILTER NOTES*/
 var isActiveTasksChecked = true; // BECAUSE INITIALLY THIS IS CHECKED
 var isCompleteTasksChecked = false;
@@ -20,20 +20,24 @@ var isCompleteTasksChecked = false;
 // item | description | date added | completed | delete
 
 var addNoteCard = function(title,description,date,status,priority,color,noteId){
+    var changeStatusBtnText = "Complete"
+    if(status == completed) changeStatusBtnText = "Uncomplete";
+
     var noteContainer = document.getElementById("notes");
     var singleNote = document.createElement('div');
     singleNote.id = noteId
-    console.log(singleNote.id)
     singleNote.className += 'note';
     singleNote.innerHTML = `
-        <h2>${title}</h2>
+        <h1>${title}</h1>
         <h3>${priority} priority task</h3>
         <h3>${status} task</h3>
         <p>${description}</p>
         <p>${date}</p>
-        <p  id="completeTaskCursor" onclick="switchTodoStatus(${noteId})">Complete</p>
-        <p  id="deleteTaskCursor" onclick="deleteTodo(${noteId})">Delete task</p>
-    `;
+        <div class="d-flex p-2  justify-content-center">
+            <button  id="completeTaskCursor" class="btn-primary button"  onclick="switchTodoStatus(${noteId})">${changeStatusBtnText}</button>
+            <button  id="deleteTaskCursor" class="btn-primary button" onclick="deleteTodo(${noteId})">Delete task</button>
+        </div>
+        `;
     noteContainer.appendChild(singleNote);
 }
 
@@ -43,15 +47,19 @@ var refreshNotesCards = function () {
     var noteContainer = document.getElementById("notes");
     noteContainer.innerHTML = "";
     var listLocalStorage = localStorage.getObj(noteList)
-    if(!isActiveTasksChecked){
-        listLocalStorage = listLocalStorage.filter(checkIfActive)
+    var filteredLocalStorage
+    if(isActiveTasksChecked & isCompleteTasksChecked){
+        filteredLocalStorage = listLocalStorage
     }
-    if(!isCompleteTasksChecked){
-        listLocalStorage = listLocalStorage.filter(checkIfCompleted)
+    else{
+        if(!isActiveTasksChecked)filteredLocalStorage = listLocalStorage.filter(checkIfActive)
+        if(!isCompleteTasksChecked) filteredLocalStorage = listLocalStorage.filter(checkIfCompleted)
     }
-    for (eachNote in listLocalStorage){
-        var noteObject = listLocalStorage[eachNote];
-        addNoteCard(noteObject.title,noteObject.description,noteObject.date,noteObject.status,noteObject.priority,noteObject.color,eachNote);
+    for (eachNote in filteredLocalStorage){
+        var noteObject = filteredLocalStorage[eachNote];
+        var noteIndex = listLocalStorage.indexOf(noteObject)
+        console.log("Note index : " + noteIndex)
+        addNoteCard(noteObject.title,noteObject.description,noteObject.date,noteObject.status,noteObject.priority,noteObject.color,noteIndex);
     }
 }
 
@@ -126,11 +134,9 @@ var deleteTodo = function (id) {
 var switchTodoStatus = function(id){
     var listLocalStorage = localStorage.getObj(noteList)
     var oldNoteStatus = listLocalStorage[id].status
-    console.log(oldNoteStatus)
+    console.log(id)
     if(oldNoteStatus === active){
-        console.log(listLocalStorage[id].status)
         listLocalStorage[id].status = completed
-        console.log("This should be changed now = " + listLocalStorage[id].status)
     }
     else{
         listLocalStorage[id].status = active 

@@ -7,10 +7,33 @@ h1 {
     border-radius: 7px;
     box-shadow: 0 2px 5px #ccc;
     padding: 20px;
-    width: 250px;
+    min-width: 250px;
+    max-width: 300px;
     margin: 10px;
     float: left;
   }
+
+.note h1{
+  text-align: center;
+  color: #0804e2;
+  font-weight: 550;
+  font-size: 40px;
+  letter-spacing: -1.3px;
+}
+
+.note h2{
+
+}
+
+.note h3{
+
+}
+
+.note button{
+  margin-left : 2px;
+  margin-right: 2px;
+}
+
 
 .menu-button{
   margin: 2px 12px;
