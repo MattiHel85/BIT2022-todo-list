@@ -29,11 +29,16 @@ var addNoteCard = function(title,description,date,status,priority,color,noteId){
     singleNote.className += 'note';
     singleNote.innerHTML = `
         <h1>${title}</h1>
-        <h3>${priority} priority task</h3>
-        <h3>${status} task</h3>
-        <p>${description}</p>
-        <p>${date}</p>
-        <div class="d-flex p-2  justify-content-center">
+        <div class="p-1"></div>
+        <div class="note-status d-flex justify-content-center">
+            <h2>${status} task</h2>
+            <div class="p-2"></div>
+            <h2>${priority} priority</h2>
+        </div>
+        <div class="p-1"></div>
+        <p class="desc">${description}</p>
+        <p class="date">Task added: ${date}</p>
+        <div class="d-flex  justify-content-center">
             <button  id="completeTaskCursor" class="btn-primary button"  onclick="switchTodoStatus(${noteId})">${changeStatusBtnText}</button>
             <button  id="deleteTaskCursor" class="btn-primary button" onclick="deleteTodo(${noteId})">Delete task</button>
         </div>
@@ -190,7 +195,8 @@ window.onclick = function(event) {
   }
 
   var setTaskTitle = function(){
-      document.getElementById("task-priority").innerHTML = `<h2>Add ${selectedPriority} priority task.</h2>`
+      priorityLowCase = selectedPriority.charAt(0).toLowerCase() + selectedPriority.slice(1);
+      document.getElementById("task-priority").innerHTML = `<h2>Add ${priorityLowCase} priority task.</h2>`
   }
 
   var onLoad = function(){
