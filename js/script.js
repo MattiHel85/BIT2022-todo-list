@@ -19,10 +19,10 @@ var isCompleteTasksChecked = false;
 
 // item | description | date added | completed | delete
 
-var addNoteCard = function(title,description,date,status,priority,color,noteId){
+var addNoteCard = function(title,description,date,status,priority,noteId){
     var changeStatusBtnText = "Complete"
     if(status == completed) changeStatusBtnText = "Uncomplete";
-
+    var dotColor = getColor(priority)
     var noteContainer = document.getElementById("notes");
     var singleNote = document.createElement('div');
     singleNote.id = noteId
@@ -30,10 +30,11 @@ var addNoteCard = function(title,description,date,status,priority,color,noteId){
     singleNote.innerHTML = `
         <h1>${title}</h1>
         <div class="p-1"></div>
-        <div class="note-status d-flex justify-content-center">
+        <div class="note-status d-flex flex-row justify-content-center">
             <h2>${status} task</h2>
             <div class="p-2"></div>
             <h2>${priority} priority</h2>
+            <div class="note-circle" style="background-color: ${dotColor}"></div>
         </div>
         <div class="p-1"></div>
         <p class="desc">${description}</p>
@@ -44,6 +45,17 @@ var addNoteCard = function(title,description,date,status,priority,color,noteId){
         </div>
         `;
     noteContainer.appendChild(singleNote);
+}
+
+var getColor = function(priority){
+    switch(priority){
+        case "Low":
+            return "green";
+        case "Medium":
+            return "yellow";
+        case "High":
+            return "red";
+    }
 }
 
 //  FIRSTLY DELETE ALL NOTES THEN ADD ALL NOTES FROM LOCALSTORAGE
@@ -64,7 +76,7 @@ var refreshNotesCards = function () {
         var noteObject = filteredLocalStorage[eachNote];
         var noteIndex = listLocalStorage.indexOf(noteObject)
         console.log("Note index : " + noteIndex)
-        addNoteCard(noteObject.title,noteObject.description,noteObject.date,noteObject.status,noteObject.priority,noteObject.color,noteIndex);
+        addNoteCard(noteObject.title,noteObject.description,noteObject.date,noteObject.status,noteObject.priority,noteIndex);
     }
 }
 
@@ -105,7 +117,7 @@ var addNewNote = function () {
     //LOAD LIST OF NOTES FROM THE LOCAL SOTRAGE
     var oldListLocalStorage = localStorage.getObj(noteList)
     //CREATE NEW NOTE
-    var newNote = new Note(item,description,date,"Red",selectedPriority,active) //TODO ADD DROPDOWNMENU COLOR PICKER OPTION
+    var newNote = new Note(item,description,date,selectedPriority,active) //TODO ADD DROPDOWNMENU COLOR PICKER OPTION
     //IF ARRAY OF NOTES FROM LOCAL STORAGE IS NULL CREATE NEW ARRAY
     //SAVE IT IN THE LOCAL STORAGE
     if(oldListLocalStorage == null) {
