@@ -61,17 +61,27 @@ var getColor = function(priority){
 //  FIRSTLY DELETE ALL NOTES THEN ADD ALL NOTES FROM LOCALSTORAGE
 // IN THIS FUNCTION WE ALSO FILTER THE RESULT ACCORDING TO USER CHOICE.
 var refreshNotesCards = function () {
+    clearTasksInfo()
     var noteContainer = document.getElementById("notes");
     noteContainer.innerHTML = "";
     var listLocalStorage = localStorage.getObj(noteList)
     var filteredLocalStorage
-    if(isActiveTasksChecked & isCompleteTasksChecked){
+    if(!isActiveTasksChecked && !isCompleteTasksChecked){
+        return;
+    }
+    else if(isActiveTasksChecked & isCompleteTasksChecked){
         filteredLocalStorage = listLocalStorage
+        updateTasksInfo(listLocalStorage.filter(checkIfCompleted).length,active);
+        updateTasksInfo(listLocalStorage.filter(checkIfActive).length,completed,true);
+    }
+    else if (!isActiveTasksChecked){
+        filteredLocalStorage = listLocalStorage.filter(checkIfActive)
+        updateTasksInfo(filteredLocalStorage.length, completed)
     }
     else{
-        if(!isActiveTasksChecked)filteredLocalStorage = listLocalStorage.filter(checkIfActive)
-        if(!isCompleteTasksChecked) filteredLocalStorage = listLocalStorage.filter(checkIfCompleted)
-    }
+         filteredLocalStorage = listLocalStorage.filter(checkIfCompleted)
+         updateTasksInfo(filteredLocalStorage.length, active)
+     }
     for (eachNote in filteredLocalStorage){
         var noteObject = filteredLocalStorage[eachNote];
         var noteIndex = listLocalStorage.indexOf(noteObject)
@@ -79,6 +89,30 @@ var refreshNotesCards = function () {
         addNoteCard(noteObject.title,noteObject.description,noteObject.date,noteObject.status,noteObject.priority,noteIndex);
     }
 }
+
+
+//ADJUST THE INFORMATION ABOUT PRESENTED TASKS
+var updateTasksInfo = function(size,status,isSecondValue){
+    var taskInfoContainer = document.getElementById("tasks-info");
+    var singleInfo = document.createElement('task-info');
+    if(isSecondValue == true){
+        singleInfo.innerHTML = `
+        and ${size} ${status.toLowerCase()} tasks
+        `
+    }
+    else{
+    singleInfo.innerHTML = `
+    Showing ${size} ${status.toLowerCase()} tasks
+    `
+    }
+    taskInfoContainer.appendChild(singleInfo)
+}
+
+var clearTasksInfo = function(){
+    var taskInfoContainer = document.getElementById("tasks-info");
+    taskInfoContainer.innerHTML = "";
+}
+
 
 var checkIfActive = function(note){
     if(note.status == active) return false

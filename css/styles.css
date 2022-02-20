@@ -1,5 +1,7 @@
 h1 {
-    font-size: 40px;
+    font-size: 54px;
+    font-weight: 550;
+    letter-spacing: -1.2px;
 }
 
 .note {
@@ -65,12 +67,21 @@ h1 {
 
 
 .menu-button{
-  margin: 2px 12px;
+  margin: 1px 12px;
 }
 
 .custom-nav-bar{
   margin-bottom: 20px;
+  background-color: #f5f4f4;
   text-align: center;
+  border-bottom: solid 1px black;
+}
+
+#tasks-info{
+  font-size: 14px;
+  font-weight: 550;
+  letter-spacing: 1.4px;
+  color: #5c5c5c;
 }
 
 #deleteTaskCursor:hover {
