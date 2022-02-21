@@ -24,12 +24,18 @@ var isCompleteTasksChecked = false;
 // FUNCTION RESPONSIBLE FOR DRAWING NOTE ON THE SCREEN
 var addNoteCard = function(title,description,date,status,priority,noteId){
     var changeStatusBtnText = "Complete"
-    if(status == completed) changeStatusBtnText = "Uncomplete";
+    color = "white"
+    if(status == completed){
+        changeStatusBtnText = "Uncomplete";
+        title = title.strike()
+        color = "#c0c0c0"
+        }
     var dotColor = getColor(priority)
     var noteContainer = document.getElementById("notes");
     var singleNote = document.createElement('div');
     singleNote.id = noteId
     singleNote.className += 'note';
+    singleNote.style.backgroundColor = color
     singleNote.innerHTML = `
         <h1>${title}</h1>
         <div class="p-1"></div>
