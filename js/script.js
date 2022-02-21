@@ -102,14 +102,17 @@ var refreshNotesCards = function () {
 var updateTasksInfo = function(size,status,isSecondValue){
     var taskInfoContainer = document.getElementById("tasks-info");
     var singleInfo = document.createElement('task-info');
+    var tasks = "tasks";
+    if(size == 1)tasks = tasks.slice(0,-1);
+
     if(isSecondValue == true){
         singleInfo.innerHTML = `
-        and ${size} ${status.toLowerCase()} tasks
+        and ${size} ${status.toLowerCase()} ${tasks}
         `
     }
     else{
     singleInfo.innerHTML = `
-    Showing ${size} ${status.toLowerCase()} tasks
+    Showing ${size} ${status.toLowerCase()} ${tasks}
     `
     }
     taskInfoContainer.appendChild(singleInfo)
