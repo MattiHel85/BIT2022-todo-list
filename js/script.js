@@ -206,6 +206,7 @@ var switchTodoStatus = function(id){
     var oldNoteStatus = listLocalStorage[id].status
     if(oldNoteStatus === active){
         listLocalStorage[id].status = completed
+        playSuccessSound()
     }
     else{
         listLocalStorage[id].status = active 
@@ -270,5 +271,11 @@ window.onclick = function(event) {
   var completedTasksToggle = function(boolean){
     isCompleteTasksChecked = boolean;
     refreshNotesCards();
+  }
+
+  //PLAY SUCCESFUL "DING" SOUND
+  var playSuccessSound = function(){
+    var audio = new Audio('ding.wav');
+    audio.play();
   }
 
