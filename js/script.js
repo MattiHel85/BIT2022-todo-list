@@ -4,21 +4,24 @@ const noteList = 'noteList';
 const active = 'Active';
 const completed = 'Completed';
 
+//FUNCTION WHICH SAVES AN OBJECT INSIDE LOCAL STORAGE
 Storage.prototype.setObj = function(key, obj) {
     return this.setItem(key, JSON.stringify(obj))
 }
+
+//FUNCTION WHICH GETS AND OBJECT FROM LOCAL STORAGE
 Storage.prototype.getObj = function(key) {
     return JSON.parse(this.getItem(key))
 }
 
 /**THIS IS HOLDER OF PRIORITY SELECTION INITIALLY LOW*/ 
 var selectedPriority = "Low";
-/**THIS ARE TWO HOLDERS RESPONSIBLE FOR KEEPING TRACK HOW TO FILTER NOTES*/
+/**THESE ARE TWO HOLDERS RESPONSIBLE FOR KEEPING TRACK HOW TO FILTER NOTES*/
 var isActiveTasksChecked = true; // BECAUSE INITIALLY THIS IS CHECKED
 var isCompleteTasksChecked = false;
 
 // item | description | date added | completed | delete
-
+// FUNCTION RESPONSIBLE FOR DRAWING NOTE ON THE SCREEN
 var addNoteCard = function(title,description,date,status,priority,noteId){
     var changeStatusBtnText = "Complete"
     if(status == completed) changeStatusBtnText = "Uncomplete";
@@ -47,6 +50,7 @@ var addNoteCard = function(title,description,date,status,priority,noteId){
     noteContainer.appendChild(singleNote);
 }
 
+//RETURNS COLOR WHICH CORRESPONDS TO PRIORITY LEVEL
 var getColor = function(priority){
     switch(priority){
         case "Low":
@@ -61,37 +65,40 @@ var getColor = function(priority){
 //  FIRSTLY DELETE ALL NOTES THEN ADD ALL NOTES FROM LOCALSTORAGE
 // IN THIS FUNCTION WE ALSO FILTER THE RESULT ACCORDING TO USER CHOICE.
 var refreshNotesCards = function () {
-    clearTasksInfo()
+    clearTasksInfo() //CLEARING TASK INFO ON THE TOP OF THE SCREEN
     var noteContainer = document.getElementById("notes");
     noteContainer.innerHTML = "";
-    var listLocalStorage = localStorage.getObj(noteList)
+    var listLocalStorage = localStorage.getObj(noteList) // GET OBJECTS FROM LOCAL STORAGE
     var filteredLocalStorage
-    if(!isActiveTasksChecked && !isCompleteTasksChecked){
+    if(!isActiveTasksChecked && !isCompleteTasksChecked){ // IF NOTHING IS SELECTED RETURN AND DON'T SHOW ANYTHING
         return;
     }
-    else if(isActiveTasksChecked & isCompleteTasksChecked){
+    else if(isActiveTasksChecked & isCompleteTasksChecked){ // IF BOTH NOTES TYPES ARE SELECTED DO THIS
         filteredLocalStorage = listLocalStorage
-        updateTasksInfo(listLocalStorage.filter(checkIfCompleted).length,active);
-        updateTasksInfo(listLocalStorage.filter(checkIfActive).length,completed,true);
+        updateTasksInfo(listLocalStorage.filter(checkIfNotCompleted).length,active);
+        updateTasksInfo(listLocalStorage.filter(checkIfNotActive).length,completed,true);
     }
-    else if (!isActiveTasksChecked){
-        filteredLocalStorage = listLocalStorage.filter(checkIfActive)
+    else if (!isActiveTasksChecked){ // IF ACTIVE TASKS ARE NOT SELECTED, FILTER ACTIVE TASKS OUT
+        filteredLocalStorage = listLocalStorage.filter(checkIfNotActive)
         updateTasksInfo(filteredLocalStorage.length, completed)
     }
-    else{
-         filteredLocalStorage = listLocalStorage.filter(checkIfCompleted)
+    else{ // OTHERWISE FILTER COMPLETED TASKS OUT
+         filteredLocalStorage = listLocalStorage.filter(checkIfNotCompleted)
          updateTasksInfo(filteredLocalStorage.length, active)
      }
-    for (eachNote in filteredLocalStorage){
+    for (eachNote in filteredLocalStorage){ // FOR EACH NOTE DRAW NEW NOTE ON THE SCREEN
         var noteObject = filteredLocalStorage[eachNote];
         var noteIndex = listLocalStorage.indexOf(noteObject)
-        console.log("Note index : " + noteIndex)
         addNoteCard(noteObject.title,noteObject.description,noteObject.date,noteObject.status,noteObject.priority,noteIndex);
     }
 }
 
 
 //ADJUST THE INFORMATION ABOUT PRESENTED TASKS
+//ATTRIBUTE isSecondValue IS TRUE WHEN BOTH TYPES OF NOTES ARE SELECTED AND INFORMATION ABOUT BOTH NEEDS TO BE PRESENTED
+// THEREFORE THE OUTPUT ON TOP OF THE PAGE WILL BE 
+// "Showing 10 active tasks and 6 completed tasks"
+// INSTEAD OF "Showing 10 active tasks Showing 6 completed tasks" 
 var updateTasksInfo = function(size,status,isSecondValue){
     var taskInfoContainer = document.getElementById("tasks-info");
     var singleInfo = document.createElement('task-info');
@@ -107,24 +114,26 @@ var updateTasksInfo = function(size,status,isSecondValue){
     }
     taskInfoContainer.appendChild(singleInfo)
 }
-
+//CLEARS CONTAINER WITH TASK INFO SO IT CAN BE ADJUSTED AGAIN
 var clearTasksInfo = function(){
     var taskInfoContainer = document.getElementById("tasks-info");
     taskInfoContainer.innerHTML = "";
 }
 
-
-var checkIfActive = function(note){
+//CHECKS IF NOTE IS NOT ACTIVE
+var checkIfNotActive = function(note){
     if(note.status == active) return false
     else return true
 }
 
-var checkIfCompleted = function(note){
+//CHECKS IF NOT IS NOT COMPLETED
+var checkIfNotCompleted = function(note){
     if(note.status == completed) return false
     else return true
 }
 
-
+//ADDS NEW NOTE TO LOCAL STORAGE
+//FIRSTLY CHECKS FOR INPUT VALIDITY IF INVALID SHOWS COOL ERROR ANIMATION AND RETURNS EARLY
 var addNewNote = function () {
     var item = document.getElementById("item").value;
     var description = document.getElementById("description").value;
@@ -151,7 +160,7 @@ var addNewNote = function () {
     //LOAD LIST OF NOTES FROM THE LOCAL SOTRAGE
     var oldListLocalStorage = localStorage.getObj(noteList)
     //CREATE NEW NOTE
-    var newNote = new Note(item,description,date,selectedPriority,active) //TODO ADD DROPDOWNMENU COLOR PICKER OPTION
+    var newNote = new Note(item,description,date,selectedPriority,active) 
     //IF ARRAY OF NOTES FROM LOCAL STORAGE IS NULL CREATE NEW ARRAY
     //SAVE IT IN THE LOCAL STORAGE
     if(oldListLocalStorage == null) {
@@ -169,11 +178,12 @@ var addNewNote = function () {
     clearInputFields()
 }
 
+//RESETS INPUT FIELDS
 var clearInputFields = function(){
     document.getElementById("item").value = '';
     document.getElementById("description").value = '';    
 }
-
+// DELETES TODO NOTE FROM LOCALSTORAGE AND REFRESH NOTES ON THE SCREEN
 var deleteTodo = function (id) {
     var listLocalStorage = localStorage.getObj(noteList)
     listLocalStorage.splice(id,1)
@@ -181,11 +191,10 @@ var deleteTodo = function (id) {
     refreshNotesCards()
 }
 
-
+// SWITCHES THE STATUS OF TODO NOTE FROM COMPLETE TO ACTIVE AND OTHERWISE
 var switchTodoStatus = function(id){
     var listLocalStorage = localStorage.getObj(noteList)
     var oldNoteStatus = listLocalStorage[id].status
-    console.log(id)
     if(oldNoteStatus === active){
         listLocalStorage[id].status = completed
     }
@@ -196,12 +205,7 @@ var switchTodoStatus = function(id){
     refreshNotesCards()
 }
 
-var clearTasks = function(){
-    localStorage.clear()
-    refreshNotesCards()
-}
-
-
+//SHOWS THE ERROR ANIMATION BY ADDING BOUNCE CLASS TO FIELD AND THEN REMOVING IT AFTER 1000MS
 var errorAnimation = function(elementId){
     document.getElementById(elementId).classList.add("bounce");
     setTimeout(function() {
@@ -210,8 +214,6 @@ var errorAnimation = function(elementId){
     }, 1000);   
 
 }
-
-
 
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
@@ -234,30 +236,29 @@ window.onclick = function(event) {
     }
   }
 
-
+//SELECTS PRIORITY IN ADDING NEW TODO NOTE WINDOW
   var prioritySelected = function(priority){
       selectedPriority = priority
       setTaskTitle()
   }
-
+// ADJUST PRIORITY LEVEL ON TOP OF ADD NEW NOTE WINDOW
   var setTaskTitle = function(){
       priorityLowCase = selectedPriority.charAt(0).toLowerCase() + selectedPriority.slice(1);
       document.getElementById("task-priority").innerHTML = `<h2>Add ${priorityLowCase} priority task.</h2>`
   }
 
+  //WHENEVER PAGE GETS REFRESHED, REFRESH NOTES AND SET TASK TITLE
   var onLoad = function(){
       refreshNotesCards()
       setTaskTitle()
   }
-
+//SWITCH THE FLAG BOOLEAN AND REFRESH NOTES
   var activeTasksToggle = function(boolean){
-    console.log(`Active task toggled! ${boolean} `)
     isActiveTasksChecked = boolean;
     refreshNotesCards();
   }
-
+//SWITCH THE FLAG BOOLEAN AND REFRESH NOTES
   var completedTasksToggle = function(boolean){
-    console.log(`Active task toggled! ${boolean} `)
     isCompleteTasksChecked = boolean;
     refreshNotesCards();
   }
