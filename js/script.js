@@ -49,8 +49,8 @@ var addNoteCard = function(title,description,date,status,priority,noteId){
         <p class="desc">${description}</p>
         <p class="date">Task added: ${date}</p>
         <div class="d-flex  justify-content-center">
-            <button  id="completeTaskCursor" class="btn-primary button"  onclick="switchTodoStatus(${noteId})">${changeStatusBtnText}</button>
-            <button  id="deleteTaskCursor" class="btn-primary button" onclick="deleteTodo(${noteId})">Delete task</button>
+            <button  id="completeTaskCursor" class="btn btn-primary button"  onclick="switchTodoStatus(${noteId})">${changeStatusBtnText}</button>
+            <button  id="deleteTaskCursor" class="btn btn-primary button" onclick="deleteTodo(${noteId})">Delete task</button>
         </div>
         `;
     noteContainer.appendChild(singleNote);
