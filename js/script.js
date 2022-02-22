@@ -101,28 +101,23 @@ var refreshNotesCards = function () {
 
 
 //ADJUST THE INFORMATION ABOUT PRESENTED TASKS
-//ATTRIBUTE isSecondValue IS TRUE WHEN BOTH TYPES OF NOTES ARE SELECTED AND INFORMATION ABOUT BOTH NEEDS TO BE PRESENTED
-// THEREFORE THE OUTPUT ON TOP OF THE PAGE WILL BE 
-// "Showing 10 active tasks and 6 completed tasks"
-// INSTEAD OF "Showing 10 active tasks Showing 6 completed tasks" 
-var updateTasksInfo = function(size,status,isSecondValue){
+var updateTasksInfo = function(size,status){
     var taskInfoContainer = document.getElementById("tasks-info");
-    var singleInfo = document.createElement('task-info');
     var tasks = "tasks";
-    if(size == 1)tasks = tasks.slice(0,-1);
-
-    if(isSecondValue == true){
-        singleInfo.innerHTML = `
-        and ${size} ${status.toLowerCase()} ${tasks}
-        `
+    if(size == 0)return; // THERE'S NO TASKS SO DON'T SHOW INFORMATION
+    if(size == 1)tasks = tasks.slice(0,-1); // THERE'S ONLY ONE TASK THEREFORE CUT 's' from "tasks"
+    if(taskInfoContainer.innerHTML != ""){ // IF THERE'S SOME TEXT IN THE taskInfoContainer 
+        taskInfoContainer.innerHTML += `
+        and ${size} ${status.toLowerCase()} ${tasks} 
+        `                                           // ADD NEW INFORMATION AS SECOND INFORMATION
     }
-    else{
-    singleInfo.innerHTML = `
+    else{ //OTHERWISE
+    taskInfoContainer.innerHTML += `
     Showing ${size} ${status.toLowerCase()} ${tasks}
-    `
+    ` // ADD AS FIRST INFORMATION
     }
-    taskInfoContainer.appendChild(singleInfo)
 }
+
 //CLEARS CONTAINER WITH TASK INFO SO IT CAN BE ADJUSTED AGAIN
 var clearTasksInfo = function(){
     var taskInfoContainer = document.getElementById("tasks-info");
@@ -271,11 +266,17 @@ window.onclick = function(event) {
   }
 //SWITCH THE FLAG BOOLEAN AND REFRESH NOTES
   var activeTasksToggle = function(boolean){
+    var toggle = document.getElementById("active-toggle")
+    if(boolean) toggle.innerHTML = "Hide current tasks"
+    else toggle.innerHTML = "Show current tasks"
     isActiveTasksChecked = boolean;
     refreshNotesCards();
   }
 //SWITCH THE FLAG BOOLEAN AND REFRESH NOTES
   var completedTasksToggle = function(boolean){
+    var toggle = document.getElementById("completed-toggle")
+    if(boolean) toggle.innerHTML = "Hide tasks history"
+    else toggle.innerHTML = "Show tasks history"
     isCompleteTasksChecked = boolean;
     refreshNotesCards();
   }

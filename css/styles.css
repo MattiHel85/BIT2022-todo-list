@@ -69,6 +69,9 @@ h1 {
 .menu-button{
   margin: 1px 12px;
 }
+.menu-button:hover{
+  background-color: #1da6e6ab;
+}
 
 .custom-nav-bar{
   margin-bottom: 20px;
