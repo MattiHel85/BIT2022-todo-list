@@ -187,6 +187,13 @@ var addNewNote = function () {
     clearInputFields()
 }
 
+// CLEAR ALL TASKS FROM LOCAL STORAGE.
+var clearTasks = function(){
+    localStorage.clear()
+    refreshNotesCards()
+}
+
+
 //RESETS INPUT FIELDS
 var clearInputFields = function(){
     document.getElementById("item").value = '';
