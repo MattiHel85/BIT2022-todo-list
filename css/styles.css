@@ -165,7 +165,7 @@ h1 {
 
 /**Dropdown menu*/
 
- /* Dropdown Button */
+ /* Dropdown Button
  .dropbtn {
   background-color: #0804e2;
   color: white;
@@ -178,9 +178,9 @@ h1 {
 }
 
 /* Dropdown button on hover & focus */
-.dropbtn:hover, .dropbtn:focus {
+/* .dropbtn:hover, .dropbtn:focus {
   background-color: #5ea5d4;
-}
+}  */
 
 /* The container <div> - needed to position the dropdown content */
 .dropdown {
