@@ -66,6 +66,14 @@ h1 {
 }
 
 
+#footer {
+  position: relative;
+	margin-top: -0%; /* negative value of footer height */
+	height: -10%;
+	clear:both;
+} 
+
+
 .menu-button{
   margin: 1px 12px;
 }
