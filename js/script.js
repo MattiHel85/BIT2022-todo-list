@@ -19,6 +19,8 @@ Storage.prototype.getObj = function(key) {
     return JSON.parse(this.getItem(key))
 }
 
+
+
 /**THIS IS HOLDER OF PRIORITY SELECTION INITIALLY LOW*/ 
 var selectedPriority = "Low";
 /**THESE ARE TWO HOLDERS RESPONSIBLE FOR KEEPING TRACK HOW TO FILTER NOTES*/
@@ -75,6 +77,7 @@ var getColor = function(priority){
 //  FIRSTLY DELETE ALL NOTES THEN ADD ALL NOTES FROM LOCALSTORAGE
 // IN THIS FUNCTION WE ALSO FILTER THE RESULT ACCORDING TO USER CHOICE.
 var refreshNotesCards = function () {
+    var numberOfColumns = getNumberOfColumns() // THIS CHECKS SCREEN SIZE AND ADJUST NUMBER OF COLUMNS
     clearTasksInfo() //CLEARING TASK INFO ON THE TOP OF THE SCREEN
     clearNoteCards()
     var listLocalStorage = localStorage.getObj(noteList) // GET OBJECTS FROM LOCAL STORAGE
@@ -107,10 +110,25 @@ var refreshNotesCards = function () {
             noteObject.priority,
             noteIndex,
             correctNoteContainer)
-            if(counter == 4) counter = 1; // IF COUNTER IS 4 > RESTART COUNTER > SET IT TO 1
+            if(counter == numberOfColumns) counter = 1; // IF COUNTER EQUALS NUMBER OF COLUMNS > RESTART COUNTER > SET IT TO 1
             else counter ++; // OTHERWISE ITERATE COUNTER
     }
 }
+
+// GET NUMBER OF COLUMNS ACCORDING TO THE SCREEN SIZE
+var getNumberOfColumns = function(){
+    console.log(window.innerWidth + "Screen width")
+    if(window.innerWidth>=1400) return 4;
+    if(window.innerWidth>=1200) return 3;
+    if(window.innerWidth>=768) return 2;
+    else return 1;
+}
+
+// EVERY TIME USER RESIZE WINDOW REFRESH NOTES CARDS!
+window.onresize = function(){
+    refreshNotesCards()
+    }
+
 
 //THIS FUNCTION TAKES THE NUMBER WHICH IS A COUNTER IN WHICH COLUMN NOTE SHOULD BE ADDED
 // RETURNS THE CORRECT NOTE CONTAINER
