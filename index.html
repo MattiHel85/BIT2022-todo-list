@@ -15,7 +15,7 @@
 
 </head>
 <body onLoad="onLoad()">
-    <div class="p-5 bg-primary text-white">
+    <div class="p-3 bg-primary text-white">
         <h1>Taskmaster 2.0</h1>
     </div>
     <div class ="custom-nav-bar" >
@@ -27,52 +27,57 @@
             <div>
             <input type="checkbox" onChange="completedTasksToggle(this.checked)" class="btn-check" id="btn-check-2-outlined" autocomplete="off">
             <label class="btn btn-outline-primary menu-button" for="btn-check-2-outlined" id="completed-toggle" >Show tasks history</label>
-            </div> 
-            <button class="btn btn-primary menu-button" type="button">Add new task</button>
+            </div>
+            
+            <button class="btn btn-primary menu-button" type="button" data-bs-toggle="modal" data-bs-target="#addTaskModal">Add new task</button>
         </div>
-        <div id="tasks-info">   
+        <div id="tasks-info">
+             
         </div>
     </div>
 
-    <div class="container">
-        <div class="row">
-            <!-- | item | description | date added | completed -->
-            <div class="shadow-sm col-sm-12 col-md-5 p-5 rounded" style="height: 450px" id="leftPanel">
-                <div class="mb-3" id="task-priority"></div>
-                <div class="mb-3">
-                    <label for="item" class="form-label">Title:</label>
-                    <input type="text" class="form-control box" id="item">
-                </div>
-                <div class="mb-3">
-                    <label for="description" class="form-label">Description</label>
-                    <textarea class="form-control box" id="description" rows="3"></textarea>
-                </div>
-                <div class="mb-3">
-                    <div class="dropdown">
-                        <button onclick="openDropdown()" class="dropbtn">Priority</button>
-                        <div id="myDropdown" class="dropdown-content">
-                        <a href="#low" onClick="prioritySelected('Low')">Low priority</a>
-                        <a href="#medium" onClick="prioritySelected('Medium')" >Medium priority</a>
-                        <a href="#high" onClick="prioritySelected('High')" >High priority</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3">   
-                    <!-- button to submit task            -->
-                    <input onclick="addNewNote()" type="button" value="Submit" class="btn btn-primary mb-3">
-                    <!-- button to clear table  -->
-                    <input onClick="clearTasks()" type="button" value="Clear tasks" class="btn btn-danger mb-3">
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-7 p-5 align-items-center">
-                <!-- Notes go here  -->
-                <section id="notes">           
-                </section>
-            </div>
+    <div class="modal" tabindex="-1" id="addTaskModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add task</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <div class="mb-3">
+                  <label for="item" class="form-label">Title:</label>
+                  <input type="text" class="form-control box" id="item">
+              </div>
+              <div class="mb-3">
+                  <label for="description" class="form-label">Description</label>
+                  <textarea class="form-control box" id="description" rows="3"></textarea>
+              </div>
+              <div class="mb-3">
+                  <div class="dropdown">
+                      <button onclick="openDropdown()" class="dropbtn">Priority</button>
+                      <div id="myDropdown" class="dropdown-content">
+                      <a href="#low" onClick="prioritySelected('Low')">Low priority</a>
+                      <a href="#medium" onClick="prioritySelected('Medium')" >Medium priority</a>
+                      <a href="#high" onClick="prioritySelected('High')" >High priority</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <!-- button to submit task -->
+              <input onclick="addNewNote()" type="button" value="Submit" class="btn btn-primary mb-3">
+              <!-- button to clear table  -->
+              <input onClick="clearTasks()" type="button" value="Clear tasks" class="btn btn-danger mb-3">
+          </div>
         </div>
+      </div>
+    </div>
 
-        <!-- Message to user congratulating them on finishing everything -->
 
+    <div class="container">
+        <section id="notes">
+
+        </section>
     </div>
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
