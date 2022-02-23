@@ -4,6 +4,11 @@ const noteList = 'noteList';
 const active = 'Active';
 const completed = 'Completed';
 
+var noteContainer1 = document.getElementById("notes-1");
+var noteContainer2 = document.getElementById("notes-2");
+var noteContainer3 = document.getElementById("notes-3");
+var noteContainer4 = document.getElementById("notes-4");
+
 //FUNCTION WHICH SAVES AN OBJECT INSIDE LOCAL STORAGE
 Storage.prototype.setObj = function(key, obj) {
     return this.setItem(key, JSON.stringify(obj))
@@ -22,7 +27,7 @@ var isCompleteTasksChecked = false;
 
 // item | description | date added | completed | delete
 // FUNCTION RESPONSIBLE FOR DRAWING NOTE ON THE SCREEN
-var addNoteCard = function(title,description,date,status,priority,noteId){
+var addNoteCard = function(title,description,date,status,priority,noteId,noteContainer){
     var changeStatusBtnText = "Complete"
     color = "white"
     if(status == completed){
@@ -31,7 +36,6 @@ var addNoteCard = function(title,description,date,status,priority,noteId){
         color = "#c0c0c0"
         }
     var dotColor = getColor(priority)
-    var noteContainer = document.getElementById("notes");
     var singleNote = document.createElement('div');
     singleNote.id = noteId
     singleNote.className += 'note';
@@ -72,8 +76,7 @@ var getColor = function(priority){
 // IN THIS FUNCTION WE ALSO FILTER THE RESULT ACCORDING TO USER CHOICE.
 var refreshNotesCards = function () {
     clearTasksInfo() //CLEARING TASK INFO ON THE TOP OF THE SCREEN
-    var noteContainer = document.getElementById("notes");
-    noteContainer.innerHTML = "";
+    clearNoteCards()
     var listLocalStorage = localStorage.getObj(noteList) // GET OBJECTS FROM LOCAL STORAGE
     var filteredLocalStorage
     if(!isActiveTasksChecked && !isCompleteTasksChecked){ // IF NOTHING IS SELECTED RETURN AND DON'T SHOW ANYTHING
@@ -92,13 +95,52 @@ var refreshNotesCards = function () {
          filteredLocalStorage = listLocalStorage.filter(checkIfNotCompleted)
          updateTasksInfo(filteredLocalStorage.length, active)
      }
+    var counter = 1 // KEEPING TRACK STARTS FROM FIRST NOTE CONTAINER
     for (eachNote in filteredLocalStorage){ // FOR EACH NOTE DRAW NEW NOTE ON THE SCREEN
+        var correctNoteContainer = getCorrectNoteContainer(counter)
         var noteObject = filteredLocalStorage[eachNote];
         var noteIndex = listLocalStorage.indexOf(noteObject)
-        addNoteCard(noteObject.title,noteObject.description,noteObject.date,noteObject.status,noteObject.priority,noteIndex);
+        addNoteCard(noteObject.title,
+            noteObject.description,
+            noteObject.date,
+            noteObject.status,
+            noteObject.priority,
+            noteIndex,
+            correctNoteContainer)
+            if(counter == 4) counter = 1; // IF COUNTER IS 4 > RESTART COUNTER > SET IT TO 1
+            else counter ++; // OTHERWISE ITERATE COUNTER
     }
 }
 
+//THIS FUNCTION TAKES THE NUMBER WHICH IS A COUNTER IN WHICH COLUMN NOTE SHOULD BE ADDED
+// RETURNS THE CORRECT NOTE CONTAINER
+var getCorrectNoteContainer = function(counter){
+    var noteContainer1 = document.getElementById("notes-1");
+    var noteContainer2 = document.getElementById("notes-2");
+    var noteContainer3 = document.getElementById("notes-3");
+    var noteContainer4 = document.getElementById("notes-4");
+    switch(counter){
+        case 1:
+            return noteContainer1;
+        case 2:
+            return noteContainer2;
+        case 3:
+            return noteContainer3;
+        case 4:
+            return noteContainer4;
+    }
+}
+
+var clearNoteCards = function(){
+    var noteContainer1 = document.getElementById("notes-1");
+    var noteContainer2 = document.getElementById("notes-2");
+    var noteContainer3 = document.getElementById("notes-3");
+    var noteContainer4 = document.getElementById("notes-4");
+    noteContainer1.innerHTML = "";
+    noteContainer2.innerHTML = "";
+    noteContainer3.innerHTML = "";
+    noteContainer4.innerHTML = "";
+}
 
 //ADJUST THE INFORMATION ABOUT PRESENTED TASKS
 var updateTasksInfo = function(size,status){
