@@ -256,7 +256,7 @@ window.onclick = function(event) {
 // ADJUST PRIORITY LEVEL ON TOP OF ADD NEW NOTE WINDOW
   var setTaskTitle = function(){
       priorityLowCase = selectedPriority.charAt(0).toLowerCase() + selectedPriority.slice(1);
-      document.getElementById("task-priority").innerHTML = `<h2>Add ${priorityLowCase} priority task.</h2>`
+      document.getElementById("task-priority").innerHTML = `Add ${priorityLowCase} priority task.`
   }
 
   //WHENEVER PAGE GETS REFRESHED, REFRESH NOTES AND SET TASK TITLE
