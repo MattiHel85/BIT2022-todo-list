@@ -21,15 +21,17 @@
     <div class ="custom-nav-bar" >
         <div class="container-fluid  d-flex p-2 justify-content-center">
             <div>
-            <input type="checkbox" onchange="activeTasksToggle(this.checked)" class="btn-check" id="btn-check-outlined" autocomplete="off" checked>
-            <label class="btn btn-outline-primary menu-button" for="btn-check-outlined" id="active-toggle">Hide current tasks</label>
-            </div>
-            <div>
-            <input type="checkbox" onChange="completedTasksToggle(this.checked)" class="btn-check" id="btn-check-2-outlined" autocomplete="off">
-            <label class="btn btn-outline-primary menu-button" for="btn-check-2-outlined" id="completed-toggle" >Show tasks history</label>
+                <input type="checkbox" onchange="activeTasksToggle(this.checked)" class="btn-check" id="btn-check-outlined" autocomplete="off" checked>
+                <label class="btn btn-outline-primary menu-button" for="btn-check-outlined" id="active-toggle">Hide current tasks</label>
+                </div>
+                <div>
+                <input type="checkbox" onChange="completedTasksToggle(this.checked)" class="btn-check" id="btn-check-2-outlined" autocomplete="off">
+                <label class="btn btn-outline-primary menu-button" for="btn-check-2-outlined" id="completed-toggle" >Show tasks history</label>
+                <button class="btn btn-primary menu-button" type="button" data-bs-toggle="modal" data-bs-target="#addTaskModal">Add new task</button>
+                <!-- button to clear table  -->
+                <input onClick="clearTasks()" type="button" value="Clear tasks" class="btn btn-danger">
             </div>
             
-            <button class="btn btn-primary menu-button" type="button" data-bs-toggle="modal" data-bs-target="#addTaskModal">Add new task</button>
         </div>
         <div id="tasks-info">
              
@@ -40,13 +42,13 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="task-priority"></h5>
+            <h5 class="modal-title" id="task-priority">Add task</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
               <div class="my-2">
                   <label for="item" class="form-label">Title:</label>
-                  <input type="text" class="form-control box" id="item">
+                  <input type="text" class="form-control box" id="item" maxlength="15">
               </div>
               <div class="mb-3">
                   <label for="description" class="form-label">Description</label>
@@ -66,15 +68,13 @@
           <div class="modal-footer">
               <!-- button to submit task -->
               <input onclick="addNewNote()" type="button" value="Submit" class="btn btn-primary mb-3">
-              <!-- button to clear table  -->
-              <input onClick="clearTasks()" type="button" value="Clear tasks" class="btn btn-danger mb-3">
           </div>
         </div>
       </div>
     </div>
 
 
-    <div class="container" style="min-height: 700px;" >
+    <div class="container" style="min-height: 375px;" >
         <section id="notes">
 
         </section>
