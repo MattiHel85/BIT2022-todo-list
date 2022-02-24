@@ -30,7 +30,7 @@
             <input type="checkbox" onChange="completedTasksToggle(this.checked)" class="btn-check" id="btn-check-2-outlined" autocomplete="off">
             <label class="btn btn-outline-primary btn-lg menu-button" for="btn-check-2-outlined" id="completed-toggle" >Show tasks history</label>
             </div>
-            <button class="btn btn-primary btn-lg menu-button" type="button" data-bs-toggle="modal" data-bs-target="#addTaskModal">Add new task</button>
+            <button class="btn btn-primary btn-lg menu-button" type="button" data-bs-toggle="modal" data-bs-target="#addTaskModal" onclick="resetPriority()">Add new task</button>
             <button class="btn btn-danger btn-lg menu-button-danger"  type="button" onClick="clearTasks()">Clear tasks</button>
         </div>
         <div id="tasks-info">
