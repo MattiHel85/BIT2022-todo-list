@@ -21,3 +21,15 @@ In order to keep consistent layout of the notes we have 4 columns with cards to 
  <img src="https://user-images.githubusercontent.com/70368829/155522508-6eb0d9e6-89de-480d-a420-3b2074a5e5cd.png" width="700">
   <img src="https://user-images.githubusercontent.com/70368829/155522511-9e4dfab2-6afe-4edc-91f6-ba36c46aa7ee.png" width="700">
 </p>
+
+## Features implemented
+- Adding note
+- Deleting note
+- Marking note as complete
+- Clearing all notes
+- Filtering notes based on status
+
+## Additional features that could be implemented:
+- List of tasks. It would be nice to have many different lists of the task and make a feature in which user could choose which list is currentyl displayed and edited.
+- Connecting app with a server instead of storing data on localstorage
+- Edting note
