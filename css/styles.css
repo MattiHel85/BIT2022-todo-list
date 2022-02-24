@@ -82,6 +82,10 @@ h1 {
   background-color: #1da6e6ab;
 }
 
+.menu-button-danger{
+  margin: 1px 12px;
+}
+
 .priority:hover{
   cursor: pointer;
 }

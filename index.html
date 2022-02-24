@@ -22,23 +22,16 @@
     </div>
     <div class ="custom-nav-bar" >
         <div class="container-fluid  d-flex p-2 justify-content-center">
-            <div class="row">
-                <div class="col-sm-12 col-md-3">
-                    <input type="checkbox" onchange="activeTasksToggle(this.checked)" class="btn-check" id="btn-check-outlined" autocomplete="off" checked>
-                    <label class="btn btn-outline-primary menu-button btn-lg" for="btn-check-outlined" id="active-toggle">Hide current tasks</label>
-                </div>
-                <div class="col-sm-12 col-md-3">
-                    <input type="checkbox" onChange="completedTasksToggle(this.checked)" class="btn-check btn-sm" id="btn-check-2-outlined" autocomplete="off">
-                    <label class="btn btn-outline-primary menu-button btn-lg" for="btn-check-2-outlined" id="completed-toggle" >Show tasks history</label>
-                </div>
-                <div class="col-sm-12 col-md-3">
-                    <button class="btn btn-primary menu-button btn-lg" type="button" data-bs-toggle="modal" data-bs-target="#addTaskModal" onclick="resetPriority()">Add new task</button>
-                </div>
-                <div class="col-sm-12 col-md-3">
-                    <!-- button to clear table  -->
-                    <input onClick="clearTasks()" type="button" value="Clear tasks" class="btn btn-danger btn-lg">
-                </div>             
-            </div>            
+            <div>
+            <input type="checkbox" onchange="activeTasksToggle(this.checked)" class="btn-check" id="btn-check-outlined" autocomplete="off" checked>
+            <label class="btn btn-outline-primary menu-button" for="btn-check-outlined" id="active-toggle">Hide current tasks</label>
+            </div>
+            <div>
+            <input type="checkbox" onChange="completedTasksToggle(this.checked)" class="btn-check" id="btn-check-2-outlined" autocomplete="off">
+            <label class="btn btn-outline-primary menu-button" for="btn-check-2-outlined" id="completed-toggle" >Show tasks history</label>
+            </div>
+            <button class="btn btn-primary menu-button" type="button" data-bs-toggle="modal" data-bs-target="#addTaskModal">Add new task</button>
+            <button class="btn btn-danger menu-button-danger"  type="button" onClick="clearTasks()">Clear tasks</button>
         </div>
         <div id="tasks-info">
              
