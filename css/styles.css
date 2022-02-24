@@ -2,6 +2,7 @@ h1 {
     font-size: 54px;
     font-weight: 550;
     letter-spacing: -1.2px;
+    word-wrap: break-word;
 }
 
 .note {
@@ -42,6 +43,14 @@ h1 {
     margin-left: 8px;
 }
 
+.note-circle-modal{
+  height: 20px;
+  width: 20px;
+  background-color: rgb(20, 236, 0);
+  border-radius: 50%;
+  margin-top: 7.2px;
+}
+
 .date{
   font-size : 12px;
   color: rgb(87, 87, 87);
@@ -66,20 +75,19 @@ h1 {
   margin-right: 2px;
 }
 
-
-#footer {
-  position: relative;
-	margin-top: -0%; /* negative value of footer height */
-	height: -10%;
-	clear:both;
-} 
-
-
 .menu-button{
   margin: 1px 12px;
 }
 .menu-button:hover{
   background-color: #1da6e6ab;
+}
+
+.priority:hover{
+  cursor: pointer;
+}
+
+#task-priority{
+  justify-content: center;
 }
 
 .custom-nav-bar{

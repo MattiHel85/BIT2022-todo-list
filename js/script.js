@@ -4,10 +4,17 @@ const noteList = 'noteList';
 const active = 'Active';
 const completed = 'Completed';
 
-var noteContainer1 = document.getElementById("notes-1");
-var noteContainer2 = document.getElementById("notes-2");
-var noteContainer3 = document.getElementById("notes-3");
-var noteContainer4 = document.getElementById("notes-4");
+/**THIS IS HOLDER OF PRIORITY SELECTION INITIALLY LOW*/ 
+var selectedPriority = "Low";
+
+//RESET SELECTED PRIORITY
+//IT IS CALLED EVERYTIME MODAL IS OPENED
+var resetPriority = function(){
+    console.log("resetPriority")
+    selectedPriority = "Low";
+    console.log(selectedPriority)
+    setTaskTitle()
+}
 
 //FUNCTION WHICH SAVES AN OBJECT INSIDE LOCAL STORAGE
 Storage.prototype.setObj = function(key, obj) {
@@ -19,16 +26,12 @@ Storage.prototype.getObj = function(key) {
     return JSON.parse(this.getItem(key))
 }
 
-
-
-/**THIS IS HOLDER OF PRIORITY SELECTION INITIALLY LOW*/ 
-var selectedPriority = "Low";
 /**THESE ARE TWO HOLDERS RESPONSIBLE FOR KEEPING TRACK HOW TO FILTER NOTES*/
 var isActiveTasksChecked = true; // BECAUSE INITIALLY THIS IS CHECKED
 var isCompleteTasksChecked = false;
 
 // item | description | date added | completed | delete
-// FUNCTION RESPONSIBLE FOR DRAWING NOTE ON THE SCREEN
+// FUNCTION RESPONSIBLE FOR DRAWING SINGLE NOTE ON THE SCREEN
 var addNoteCard = function(title,description,date,status,priority,noteId,noteContainer){
     var changeStatusBtnText = "Complete"
     color = "white"
@@ -253,8 +256,11 @@ var clearTasks = function(){
 var clearInputFields = function(){
     document.getElementById("item").value = '';
     document.getElementById("description").value = '';
-    document.getElementById("task-priority").innerHTML = '';
+    //document.getElementById("task-priority").innerHTML = ''; 
 }
+
+
+
 // DELETES TODO NOTE FROM LOCALSTORAGE AND REFRESH NOTES ON THE SCREEN
 var deleteTodo = function (id) {
     var listLocalStorage = localStorage.getObj(noteList)
@@ -316,9 +322,19 @@ window.onclick = function(event) {
   }
 // ADJUST PRIORITY LEVEL ON TOP OF ADD NEW NOTE WINDOW
   var setTaskTitle = function(){
+      var dotColor = getColor(selectedPriority)
       priorityLowCase = selectedPriority.charAt(0).toLowerCase() + selectedPriority.slice(1);
-
-      document.getElementById("task-priority").innerHTML = `Add ${priorityLowCase} priority task.`;
+      document.getElementById("task-priority").innerHTML = `
+      <div class="note-status d-flex flex-row justify-content-center">
+        <div class="note-circle-modal" style="background-color: ${dotColor}"></div>
+        <div class="p-1"></div>
+        Add ${priorityLowCase} priority task
+        <div class="p-1"></div>
+        <div class="note-circle-modal" style="background-color: ${dotColor}"></div>
+      </div>
+      `
+      
+      ;
   }
 
   //WHENEVER PAGE GETS REFRESHED, REFRESH NOTES AND SET TASK TITLE
