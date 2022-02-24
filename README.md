@@ -1,7 +1,17 @@
 # BIT2022 Taskmaster 2.0
 ## githubpages URL https://mattihel85.github.io/BIT2022-todo-list/
 
-Taskmaster 2.0 is a simple ToDo web application. We wanted to design something slightly more interesting than a small too simple window with a list of tasks one under another. After sketching some wireframes we decided to take an inspiration from padlet.org. Therefore our ToDo application is based  on large tasks note cards which user can add, mark as complete, delete and filter. Each task note is made of priority level, title and description.
+Taskmaster 2.0 is a simple ToDo web application. We wanted to design something slightly more interesting than a small too simple window with a list of tasks one under another. After sketching some wireframes we decided to take an inspiration from padlet.org.
+
+Therefore our ToDo application is based  on large tasks note cards which user can add, mark as complete, delete and filter. Each task note is made of priority level, title and description.
+
+Filtering is possible thanks to task status and two toggle buttons, user can configure toggle buttons to see one of 4 options: 
+- Seeing active tasks
+- Seeing completed tasks
+- Seeing both types of tasks
+- Seeing nothing
+
+In order to keep consistent layout of the notes we have 4 columns with cards to which notes are appended with JavaScript code. With refreshNotesCards function app refreshes cards everytime it's required. The function keeps track to which column next note should be added as well as evaluates how many columns are there according to current screen width. 
 
 ## Application screenshots
 
