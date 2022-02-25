@@ -1,6 +1,8 @@
 # BIT2022 Taskmaster 2.0
 ## githubpages URL https://mattihel85.github.io/BIT2022-todo-list/
 
+Pair work: Matthew Simpson & Michał Guspiel
+
 Taskmaster 2.0 is a simple ToDo web application. We wanted to design something slightly more interesting than a small too simple window with a list of tasks one under another. After sketching some wireframes we decided to take an inspiration from padlet.org.
 
 Therefore our ToDo application is based  on large tasks note cards which user can add, mark as complete, delete and filter. Each task note is made of priority level, title and description.
