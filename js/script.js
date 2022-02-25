@@ -7,6 +7,7 @@ const completed = 'Completed';
 /**THIS IS HOLDER OF PRIORITY SELECTION INITIALLY LOW*/ 
 var selectedPriority = "Low";
 
+
 //RESET SELECTED PRIORITY
 //IT IS CALLED EVERYTIME MODAL IS OPENED
 var resetPriority = function(){
@@ -81,6 +82,7 @@ var getColor = function(priority){
 // IN THIS FUNCTION WE ALSO FILTER THE RESULT ACCORDING TO USER CHOICE.
 var refreshNotesCards = function () {
     var numberOfColumns = getNumberOfColumns() // THIS CHECKS SCREEN SIZE AND ADJUST NUMBER OF COLUMNS
+    currentNumberOfColumns = numberOfColumns // UPDATES NEW NUMBER OF COLUMNS
     clearTasksInfo() //CLEARING TASK INFO ON THE TOP OF THE SCREEN
     clearNoteCards()
     var listLocalStorage = localStorage.getObj(noteList) // GET OBJECTS FROM LOCAL STORAGE
@@ -120,17 +122,23 @@ var refreshNotesCards = function () {
 
 // GET NUMBER OF COLUMNS ACCORDING TO THE SCREEN SIZE
 var getNumberOfColumns = function(){
-    console.log(window.innerWidth + "Screen width")
     if(window.innerWidth>=1400) return 4;
     if(window.innerWidth>=1200) return 3;
     if(window.innerWidth>=768) return 2;
     else return 1;
 }
 
-// EVERY TIME USER RESIZE WINDOW REFRESH NOTES CARDS!
+/**CHECKS STARTING NUMBER OF COLUMNS*/
+var currentNumberOfColumns = getNumberOfColumns()
+
+// EVERY TIME USER RESIZE WINDOW AND THE CURRENT NUMBER OF COLUMNS CHANGES REFRESH NOTES CARDS!
 window.onresize = function(){
-    refreshNotesCards()
+    var newNumberOfColumns = getNumberOfColumns()
+    if(currentNumberOfColumns != newNumberOfColumns) {
+        console.log("DIFFERENT NUMBERS OF COLUMNS, REFRESH NOTES!")
+        refreshNotesCards()
     }
+}
 
 
 //THIS FUNCTION TAKES THE NUMBER WHICH IS A COUNTER IN WHICH COLUMN NOTE SHOULD BE ADDED
@@ -364,4 +372,3 @@ window.onclick = function(event) {
     var audio = new Audio('ding.wav');
     audio.play();
   }
-
