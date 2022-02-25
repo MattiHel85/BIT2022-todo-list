@@ -46,6 +46,8 @@ var addNoteCard = function(title,description,date,status,priority,noteId,noteCon
     singleNote.id = noteId
     singleNote.className += 'note';
     singleNote.style.backgroundColor = color
+    
+    // HTML for individual note
     singleNote.innerHTML = `
         <h1>${title}</h1>
         <div class="p-1"></div>

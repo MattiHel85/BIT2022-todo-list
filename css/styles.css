@@ -223,3 +223,20 @@ h1 {
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:block;} 
+
+/* Resize buttons on smaller screens */
+
+@media only screen and (max-width: 768px) {
+  .mobile-button {
+    font-size: small;
+    padding: 10px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .mobile-button {
+    width: 100px;
+    font-size:x-small;
+    padding: 10px;
+  }
+}
